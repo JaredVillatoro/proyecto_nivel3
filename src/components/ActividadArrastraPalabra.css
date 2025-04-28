@@ -1,0 +1,35 @@
+.imagenes {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+  }
+  
+  .imagen {
+    text-align: center;
+  }
+  
+  .palabra {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: lightblue;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .zona-de-soltar {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .soltar {
+    width: 300px;
+    height: 150px;
+    border: 2px dashed #ccc;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #555;
+  }
+  
