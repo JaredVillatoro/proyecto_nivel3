@@ -8,21 +8,21 @@ const frutas = [
 ];
 
 function ActividadArrastraPalabra() {
-  const [mensaje, setMensaje] = useState("");
   const [palabraArrastrada, setPalabraArrastrada] = useState(null);
+  const [emparejamientos, setEmparejamientos] = useState({});
+  const [mensaje, setMensaje] = useState("");
+  const [verificado, setVerificado] = useState(false);
 
-  const permitirSoltar = (e) => {
-    e.preventDefault();
-  };
+  const permitirSoltar = (e) => e.preventDefault();
 
   const soltarPalabra = (e, fruta) => {
-    if (palabraArrastrada === fruta.palabra) {
-      setMensaje(`✅ ¡Muy bien! Esa es la palabra correcta: ${fruta.palabra}`);
-      leerTexto(`Muy bien. ${fruta.palabra}`);
-    } else {
-      setMensaje("❌ Esa no es la palabra correcta. Intenta de nuevo.");
-      leerTexto("Esa no es la palabra correcta");
+    if (!emparejamientos[fruta.id]) {
+      setEmparejamientos({
+        ...emparejamientos,
+        [fruta.id]: palabraArrastrada,
+      });
     }
+    setPalabraArrastrada(null);
   };
 
   const leerTexto = (texto) => {
@@ -31,13 +31,37 @@ function ActividadArrastraPalabra() {
     window.speechSynthesis.speak(voz);
   };
 
+  const verificarRespuestas = () => {
+    const correcto = frutas.every(
+      (fruta) => emparejamientos[fruta.id] === fruta.palabra
+    );
+
+    if (correcto) {
+      setMensaje("🎉 ¡Felicidades! Todas las palabras son correctas.");
+      leerTexto("¡Felicidades! Lo hiciste muy bien.");
+    } else {
+      setMensaje("❌ Algunas palabras están incorrectas. Intenta de nuevo.");
+      leerTexto("Algunas palabras están incorrectas, vuelve a intentarlo.");
+
+      // Reinicia los emparejamientos después de un pequeño delay
+      setTimeout(() => {
+        setEmparejamientos({});
+        setMensaje("");
+        setVerificado(false);
+      }, 2500);
+    }
+
+    setVerificado(true);
+  };
+
+  const palabrasDisponibles = frutas
+    .map((fruta) => fruta.palabra)
+    .filter((palabra) => !Object.values(emparejamientos).includes(palabra));
+
   return (
     <div>
-      <h2> Actividad 3: Relaciona la palabra con la imagen</h2>
-      <p>
-        Arrastra la palabra hacia la imagen correcta. Da clic en la palabra para
-        escucharla.
-      </p>
+      <h2>Actividad 3: Relaciona la palabra con la imagen</h2>
+      <p>Arrastra la palabra hacia la imagen correcta. Da clic en la palabra para escucharla.</p>
 
       <div style={{ display: "flex", gap: "30px", flexWrap: "wrap", justifyContent: "center" }}>
         {frutas.map((fruta) => (
@@ -55,24 +79,26 @@ function ActividadArrastraPalabra() {
               alignItems: "center",
               backgroundColor: "#fdfdfd",
               borderRadius: "12px",
+              flexDirection: "column",
             }}
           >
             <img
               src={fruta.imagen}
               alt={fruta.palabra}
-              style={{ width: "100px", height: "100px" }}
+              style={{ width: "80px", height: "80px", objectFit: "contain", marginBottom: "10px" }}
             />
+            <strong>{emparejamientos[fruta.id] || "..."}</strong>
           </div>
         ))}
       </div>
 
       <div style={{ marginTop: "30px", textAlign: "center" }}>
-        {frutas.map((fruta) => (
+        {palabrasDisponibles.map((palabra) => (
           <div
-            key={fruta.palabra}
+            key={palabra}
             draggable
-            onDragStart={() => setPalabraArrastrada(fruta.palabra)}
-            onClick={() => leerTexto(fruta.palabra)}
+            onDragStart={() => setPalabraArrastrada(palabra)}
+            onClick={() => leerTexto(palabra)}
             style={{
               display: "inline-block",
               padding: "10px 20px",
@@ -84,10 +110,29 @@ function ActividadArrastraPalabra() {
               fontWeight: "bold",
             }}
           >
-            {fruta.palabra}
+            {palabra}
           </div>
         ))}
       </div>
+
+      {Object.keys(emparejamientos).length === frutas.length && !verificado && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <button
+            onClick={verificarRespuestas}
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              backgroundColor: "#4caf50",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Verificar
+          </button>
+        </div>
+      )}
 
       {mensaje && (
         <p
@@ -95,7 +140,8 @@ function ActividadArrastraPalabra() {
             marginTop: "20px",
             fontWeight: "bold",
             fontSize: "18px",
-            color: mensaje.includes("✅") ? "green" : "red",
+            color: mensaje.includes("❌") ? "red" : "green",
+            textAlign: "center",
           }}
         >
           {mensaje}

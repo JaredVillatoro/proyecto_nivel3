@@ -1,0 +1,179 @@
+/* ActividadVerdaderoFalso.css */
+.contenedor-actividad {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', system-ui;
+  }
+  
+  .titulo-actividad {
+    color: #1e3a5f;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .tarjeta-vf {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+  
+  .pregunta {
+    font-size: 1.3rem;
+    color: #1e293b;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  
+  .botones-vf {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .boton {
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .boton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .boton.correcto {
+    background: linear-gradient(135deg, #34d399, #10b981);
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  }
+  
+  .boton.incorrecto {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+    color: white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+  
+  .boton:not(.correcto):not(.incorrecto) {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+  }
+  
+  .boton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  .mensaje {
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .mensaje.correcto {
+    background: #dcfce7;
+    color: #166534;
+    border: 2px solid #34d399;
+  }
+  
+  .mensaje.incorrecto {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #f87171;
+  }
+  
+  .boton-reintentar,
+  .boton-continuar {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 1rem auto;
+  }
+  
+  .boton-reintentar {
+    background: #f8fafc;
+    color: #1e3a5f;
+    border: 2px solid #1e3a5f;
+  }
+  
+  .boton-reintentar:hover {
+    background: #1e3a5f;
+    color: white;
+  }
+  
+  .boton-continuar {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+  }
+  
+  .boton-continuar:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .titulo-final {
+    color: #1e3a5f;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .texto-final {
+    color: #475569;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .boton-reiniciar {
+    background: linear-gradient(135deg, #1e3a5f, #2c5282);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .boton-reiniciar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 58, 95, 0.2);
+  }
+  
+  .instrucciones-ejercicio {
+    background: #f0f4ff;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    margin: -1rem 0 2rem 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #334155;
+  }
+  
+  .instrucciones-ejercicio strong {
+    color: #1e3a5f;
+  }

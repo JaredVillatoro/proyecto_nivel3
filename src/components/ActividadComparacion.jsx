@@ -1,92 +1,139 @@
 import React, { useState } from "react";
+import "./ActividadVerdaderoFalso.css";
 
-const ActividadComparacion = () => {
-  const [mensaje, setMensaje] = useState("");
+const ejerciciosVF = [
+  {
+    afirmacion: "Las plantas pueden sobrevivir solo con aire, sin necesidad de agua ni sol.",
+    correcta: false,
+    explicacion: "Incorrecto. Las plantas necesitan agua, aire y sol para vivir. 🌱",
+  },
+  {
+    afirmacion: "El Sol es una estrella.",
+    correcta: true,
+    explicacion: "¡Correcto! El Sol es una estrella. ☀️",
+  },
+  {
+    afirmacion: "Los humanos pueden respirar bajo el agua sin ayuda.",
+    correcta: false,
+    explicacion: "Incorrecto. Los humanos necesitan aparatos especiales para respirar bajo el agua. 🐠",
+  },
+  {
+    afirmacion: "La Tierra gira alrededor del Sol.",
+    correcta: true,
+    explicacion: "¡Correcto! La Tierra gira alrededor del Sol. 🌍",
+  },
+];
+
+const ActividadVerdaderoFalso = () => {
+  const [indice, setIndice] = useState(0);
+  const [seleccion, setSeleccion] = useState(null);
   const [esCorrecto, setEsCorrecto] = useState(null);
+  const [mostrarReintentar, setMostrarReintentar] = useState(false);
+  const [completado, setCompletado] = useState(false);
 
-  const leerTexto = (texto) => {
-    const voz = new SpeechSynthesisUtterance(texto);
-    voz.lang = "es-ES";
-    window.speechSynthesis.speak(voz);
-  };
-
-  const verificarComparacion = (texto, correcta) => {
-    leerTexto(texto);
-
-    if (correcta) {
-      setMensaje("¡Excelente comparación! 🎉");
+  const verificar = (respuesta) => {
+    const correcta = ejerciciosVF[indice].correcta;
+    setSeleccion(respuesta);
+    if (respuesta === correcta) {
       setEsCorrecto(true);
+      setMostrarReintentar(false);
     } else {
-      setMensaje("Intenta de nuevo, esa comparación no es correcta. ❌");
       setEsCorrecto(false);
+      setMostrarReintentar(true);
     }
   };
 
-  return (
-    <div className="actividad">
-      <h2> Actividad 2: Compara los textos</h2>
-      <p
-        className="texto"
-        onClick={() =>
-          leerTexto(
-            "El sol proporciona energía a las plantas para que puedan crecer, mientras que el agua y el aire son esenciales para su supervivencia."
-          )
-        }
-      >
-        El sol proporciona energía a las plantas para que puedan crecer, mientras
-        que el agua y el aire son esenciales para su supervivencia.
-      </p>
+  const siguiente = () => {
+    if (indice < ejerciciosVF.length - 1) {
+      setIndice(indice + 1);
+      setSeleccion(null);
+      setEsCorrecto(null);
+      setMostrarReintentar(false);
+    } else {
+      setCompletado(true);
+    }
+  };
 
-      <div className="opciones">
-        <button
-          onClick={() =>
-            verificarComparacion(
-              "El agua y el aire son más importantes que el sol.",
-              false
-            )
-          }
-        >
-          El agua y el aire son más importantes que el sol.
-        </button>
+  const reintentar = () => {
+    setSeleccion(null);
+    setEsCorrecto(null);
+    setMostrarReintentar(false);
+  };
 
-        <button
-          onClick={() =>
-            verificarComparacion(
-              "El sol es crucial para las plantas, pero el agua y el aire también lo son.",
-              true
-            )
-          }
-        >
-          El sol es crucial para las plantas, pero el agua y el aire también lo
-          son.
-        </button>
+  const reiniciar = () => {
+    setIndice(0);
+    setSeleccion(null);
+    setEsCorrecto(null);
+    setMostrarReintentar(false);
+    setCompletado(false);
+  };
 
-        <button
-          onClick={() =>
-            verificarComparacion(
-              "Las plantas solo necesitan sol para vivir.",
-              false
-            )
-          }
-        >
-          Las plantas solo necesitan sol para vivir.
-        </button>
+  if (completado) {
+    return (
+      <div className="actividad-vf">
+        <div className="tarjeta-vf">
+          <h2 className="titulo-final">🎉 ¡Sección completada!</h2>
+          <p className="texto-final">
+            Has respondido correctamente todas las afirmaciones. ¡Muy bien hecho!
+          </p>
+          <button onClick={reiniciar} className="boton-reiniciar">
+            🔄 Volver a intentar
+          </button>
+        </div>
       </div>
+    );
+  }
 
-      {mensaje && (
-        <p
-          className="mensaje"
-          style={{
-            color: esCorrecto ? "green" : "red",
-            fontWeight: "bold",
-            marginTop: "10px",
-          }}
-        >
-          {mensaje}
+  return (
+    <div className="actividad-vf">
+      <h2 className="titulo-actividad">Ejercicio {indice + 1} de {ejerciciosVF.length}</h2>
+      {indice === 0 && (
+        <p className="instrucciones-ejercicio">
+          📝 <strong>Instrucciones:</strong> Lee la afirmación y selecciona si es verdadera o falsa.
         </p>
       )}
+      <div className="tarjeta-vf">
+        <p className="pregunta">{ejerciciosVF[indice].afirmacion}</p>
+
+        <div className="botones-vf">
+        <button
+  className={`boton ${seleccion === true ? (esCorrecto ? "correcto" : "incorrecto") : ""}`}
+  onClick={() => verificar(true)}
+  disabled={esCorrecto !== null}
+>
+  Verdadero {seleccion === true && (esCorrecto ? "✔️" : "❌")}
+</button>
+
+<button
+  className={`boton ${seleccion === false ? (esCorrecto ? "correcto" : "incorrecto") : ""}`}
+  onClick={() => verificar(false)}
+  disabled={esCorrecto !== null}
+>
+  Falso {seleccion === false && (esCorrecto ? "✔️" : "❌")}
+</button>
+
+        </div>
+
+        {seleccion !== null && (
+          <p className={`mensaje ${esCorrecto ? "correcto" : "incorrecto"}`}>
+            {ejerciciosVF[indice].explicacion}
+          </p>
+        )}
+
+        {mostrarReintentar && (
+          <button className="boton-reintentar" onClick={reintentar}>
+            🔄 Reintentar
+          </button>
+        )}
+
+        {esCorrecto && (
+          <button className="boton-continuar" onClick={siguiente}>
+            {indice < ejerciciosVF.length - 1 ? "➡️ Siguiente" : "✅ Finalizar sección"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-export default ActividadComparacion;
+export default ActividadVerdaderoFalso;

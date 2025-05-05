@@ -1,53 +1,205 @@
+/* ActividadOrdenarOraciones.css */
 .ordenar-oraciones {
-    background: #fff;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 700px;
-    margin: auto;
-    text-align: center;
-  }
-  
-  .zona-palabras, .zona-respuesta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px 0;
-    gap: 10px;
-  }
-  
-  .zona-palabras button {
-    background-color: #d1fae5;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-  }
-  
-  .zona-palabras button:hover {
-    background-color: #6ee7b7;
-  }
-  
-  .palabra-elegida {
-    background-color: #a7f3d0;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-  
-  .botones button {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .botones button:hover {
-    background-color: #2563eb;
-  }
-  
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header-actividad {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.header-actividad h2 {
+  color: #1e3a5f;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.contador {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #3b82f6;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.tarjeta-pregunta {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 15px;
+  border: 2px solid #e2e8f0;
+}
+
+.instrucciones {
+  background: #eef2ff;
+  border-left: 4px solid #6366f1;
+  padding: 1rem;
+  margin: -1rem 0 2rem 0;
+  border-radius: 8px;
+  color: #334155;
+}
+
+.zona-palabras, .zona-respuesta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 15px;
+}
+
+.zona-palabras {
+  background: linear-gradient(145deg, #f0f4ff, #ffffff);
+  border: 2px dashed #3b82f6;
+  min-height: 80px;
+}
+
+.zona-respuesta {
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  min-height: 60px;
+}
+
+.palabra-boton {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.palabra-boton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.palabra-boton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.palabra-elegida {
+  background: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid #3b82f6;
+  position: relative;
+  font-weight: 500;
+}
+
+.numero-orden {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #3b82f6;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botones-accion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.boton-verificar, .boton-siguiente, .boton-reintentar {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.boton-verificar {
+  background: linear-gradient(145deg, #10b981, #059669);
+  color: white;
+}
+
+.boton-verificar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.boton-siguiente {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.boton-reintentar {
+  background: #f8fafc;
+  color: #1e3a5f;
+  border: 2px solid #1e3a5f;
+}
+
+.tarjeta-completado {
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 15px;
+}
+
+.boton-reiniciar {
+  background: linear-gradient(145deg, #1e3a5f, #2c5282);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.boton-reiniciar:hover {
+  transform: translateY(-2px);
+}
+
+/* Agrega estos estilos al CSS existente */
+.feedback-mensaje {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.feedback-mensaje[data-correct="true"] {
+  background: #dcfce7;
+  color: #166534;
+  border: 2px solid #34d399;
+}
+
+.feedback-mensaje[data-correct="false"] {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #f87171;
+}
+
+.botones-accion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
